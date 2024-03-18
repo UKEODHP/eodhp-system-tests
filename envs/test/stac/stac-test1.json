@@ -1,0 +1,5 @@
+{
+    "command": ["curl", "https://d3ptwct64z2cyj.cloudfront.net/catalog.json"],
+    "expected_status": "200"
+  }
+  
