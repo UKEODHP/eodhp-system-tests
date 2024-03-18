@@ -13,6 +13,16 @@
 # Creating Sample Test
 * https://docs.testkube.io/articles/creating-tests
 
+``` testkube create test --name <testname> --type curl/test --file <testjsonfilepath> ```
+
+Once above command is run the following output will be displayed
+
+``` Test created testkube / <testname> 🥇 ```
+
+Execute the test using the command below
+
+``` testkube run test <testname> ```
+
 # Running a test
 * https://docs.testkube.io/articles/running-tests
 
