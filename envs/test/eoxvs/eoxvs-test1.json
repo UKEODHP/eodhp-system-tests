@@ -1,5 +1,5 @@
 {
-    "command": ["curl", "https://vs.test.eodhp.eco-ke-staging.com/"],
-    "expected_status": "200"
-  }
+  "command": ["curl", "https://vs.test.eodhp.eco-ke-staging.com/"],
+  "expected_status": "200"
+}
   
