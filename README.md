@@ -1,5 +1,8 @@
 # eodhp-system-tests
+## Prerequisites
 
+- Teskube CLI is installed (https://docs.testkube.io/articles/install-cli)
+- 
 
 # Creating First Test
   https://docs.testkube.io/articles/creating-first-test
