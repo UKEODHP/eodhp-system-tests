@@ -28,12 +28,18 @@ Execute the test using the command below
 
 ``` testkube run test <testname> ```
 
-Get the test results using:
+optionally add ``` -f ``` option to wait until the execution complete
 
-``` kubectl testkube get execution <testname> ```
+``` testkube run test <testname> -f ```
+
 
 # Getting Test Results
 https://docs.testkube.io/articles/getting-tests-results
+
+Get the test results using:
+
+``` kubectl testkube get execution <execution name> ```
+
 
 # Supported test types/executors within Testkube
 - Artillery.io: The artillery executor allows you to run Artillery tests with Testkube.
