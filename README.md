@@ -41,6 +41,30 @@ Get the test results using:
 ``` kubectl testkube get execution <execution name> ```
 
 
+# Testsuite
+Test Suites stands for the orchestration of different test steps, which can run sequentially and/or in parallel. On each batch step you can define either one or multiple steps such as test execution, delay, or other (future) steps.
+
+Create testsuite
+```bash
+ echo '
+{
+    "name": "testkube-suite",
+    "description": "Testkube test suite for eodhp",
+    "steps": [
+        {"execute": [{"test": "stac-test1"}]},
+        {"execute": [{"delay": "10s"}]},
+        {"execute": [{"test": "apphub-test1"}]}
+    ]
+}' | kubectl testkube create testsuite
+```
+
+Run testsuite
+``` testkube run testsuite <testruite name> -f ```
+
+Delete testsuite
+``` kubectl delete testsuites <testsuite name> -ntestkube ```
+
+
 # Supported test types/executors within Testkube
 - Artillery.io: The artillery executor allows you to run Artillery tests with Testkube.
 - Cypress: Our dedicated Cypress executor allows running Cypress tests with Testkube - directly from Git repository.
