@@ -68,6 +68,7 @@ Create testsuite
     ]
 }' | kubectl testkube create testsuite
 ```
+all tests in the above scripts should be created before running the testsuite script, please refer to "# Creating Test" section.
 
 Run testsuite
 
