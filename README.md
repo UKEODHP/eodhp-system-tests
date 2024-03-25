@@ -13,7 +13,7 @@
 > - Changing output format
    https://docs.testkube.io/articles/creating-first-test#changing-the-output-format
 
-# Creating Sample Test
+# Creating Test
 * https://docs.testkube.io/articles/creating-tests
 
 ``` testkube create test --name <testname> --type curl/test --file <testjsonfilepath> ```
@@ -21,6 +21,17 @@
 Once above command is run the following output will be displayed
 
 ``` Test created testkube / <testname> 🥇 ```
+
+# Updating test
+ testnames are unique, no two test can be created with same name, but the test content can be updated using bellow command
+
+``` testkube update test --name <testname> ```
+
+# adding timeout
+
+``` testkube update test --name <testname> --timeout 10 ```
+
+where the timeout value is seconds.
 
 
 
@@ -31,12 +42,52 @@ Execute the test using the command below
 
 ``` testkube run test <testname> ```
 
-Get the test results using:
+optionally add ``` -f ``` option to wait until the execution complete
 
-``` kubectl testkube get execution <testname> ```
+``` testkube run test <testname> -f ```
+
 
 # Getting Test Results
 https://docs.testkube.io/articles/getting-tests-results
+
+Get the test results using:
+
+``` kubectl testkube get execution <execution name> ```
+
+
+# Testsuite
+Test Suites stands for the orchestration of different test steps, which can run sequentially and/or in parallel. On each batch step you can define either one or multiple steps such as test execution, delay, or other (future) steps.
+
+Create testsuite
+```bash
+ echo '
+{
+    "name": "testkube-suite",
+    "description": "Testkube test suite for eodhp",
+    "steps": [
+        {"execute": [{"test": "stac-test1"}]},
+        {"execute": [{"delay": "10s"}]},
+        {"execute": [{"test": "apphub-test1"}]}
+    ]
+}' | kubectl testkube create testsuite
+```
+all tests in the above scripts should be created before running the testsuite script, please refer to "# Creating Test" section.
+
+Run testsuite
+
+``` testkube run testsuite <testsuite name> -f ```
+
+Delete testsuite
+
+``` kubectl delete testsuites <testsuite name> -ntestkube ```
+
+Result of testsuite executions
+
+``` testkube get tse```
+
+# Test Schedule
+``` kubectl testkube create test --file <filename json> --name scheduled-test --schedule="*/1 * * * *" ```
+
 
 # Supported test types/executors within Testkube
 - Artillery.io: The artillery executor allows you to run Artillery tests with Testkube.
