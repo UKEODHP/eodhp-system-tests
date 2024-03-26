@@ -85,6 +85,12 @@ Result of testsuite executions
 # Test Schedule
 ``` kubectl testkube create test --file <filename json> --name scheduled-test --schedule="*/1 * * * *" ```
 
+# Test triggers
+
+Test triggers are created as Custom Resources, they needs to be defined in yaml file
+
+``` kubectl apply -f <yamlfilepath> ```
+
 
 # Supported test types/executors within Testkube
 - Artillery.io: The artillery executor allows you to run Artillery tests with Testkube.

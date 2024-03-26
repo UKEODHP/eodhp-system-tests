@@ -1,4 +1,4 @@
 {
-  "command": ["curl", "https://apphub.test.eodhp.eco-ke-staging.com/"],
+  "command": ["curl", "https://test.eodatahub.org.uk/apphub"],
   "expected_status": "200"
 }
