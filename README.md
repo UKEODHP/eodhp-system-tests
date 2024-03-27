@@ -1,63 +1,71 @@
-# eodhp-system-tests
+# EODHP System Tests
 
 
-# Creating First Test
+## Creating First Test
   https://docs.testkube.io/articles/creating-first-test
   
-> - CLI - manual test execution
+ - CLI - manual test execution
    [https://httpbin.test.k6.io/](https://docs.testkube.io/articles/creating-first-test#cli)
    
-> - Changing output format
+ - Changing output format
    https://docs.testkube.io/articles/creating-first-test#changing-the-output-format
 
-# Creating Test
+## Creating Test
 * https://docs.testkube.io/articles/creating-tests
 
-``` testkube create test --name <testname> --type curl/test --file <testjsonfilepath> ```
+` testkube create test --name <testname> --type curl/test --file <testjsonfilepath> `
 
 Once above command is run the following output will be displayed
 
-``` Test created testkube / <testname> 🥇 ```
+` Test created testkube / <testname> 🥇 `
 
-# Updating test
+## Updating test
  testnames are unique, no two test can be created with same name, but the test content can be updated using bellow command
 
-``` testkube update test --name <testname> ```
+` testkube update test --name <testname> `
 
-# adding timeout
+### adding timeout
 
-``` testkube update test --name <testname> --timeout 10 ```
+` testkube update test --name <testname> --timeout 10 `
 
 where the timeout value is seconds.
 
 
 
-# Running a test
+## Running a test
 * https://docs.testkube.io/articles/running-tests
 
 Execute the test using the command below
 
-``` testkube run test <testname> ```
+` testkube run test <testname> `
 
-optionally add ``` -f ``` option to wait until the execution complete
+optionally add ` -f ` option to wait until the execution complete
 
-``` testkube run test <testname> -f ```
+` testkube run test <testname> -f `
 
+## Test Schedule
+` kubectl testkube create test --file <filename json> --name scheduled-test --schedule="*/1 * * * *" `
 
-# Getting Test Results
+## Getting Test Results
 https://docs.testkube.io/articles/getting-tests-results
 
 Get the test results using:
 
-``` kubectl testkube get execution <execution name> ```
+` kubectl testkube get execution <execution name> `
 
 
 # Testsuite
 Test Suites stands for the orchestration of different test steps, which can run sequentially and/or in parallel. On each batch step you can define either one or multiple steps such as test execution, delay, or other (future) steps.
 
-Create testsuite
-```bash
- echo '
+## Create testsuite
+
+Content of the test suites are defined as json file under "testsuite" folder
+
+/testsuite/devtestsuite.json
+
+Content of the sample json file is below, where the test names such as "stac-test1" and "apphub-test1" should be created before testsuite creation
+
+```json
 {
     "name": "testkube-suite",
     "description": "Testkube test suite for eodhp",
@@ -66,30 +74,34 @@ Create testsuite
         {"execute": [{"delay": "10s"}]},
         {"execute": [{"test": "apphub-test1"}]}
     ]
-}' | kubectl testkube create testsuite
+}
 ```
+
+test suite is created as:
+
+`cat devtestsuite.json | kubectl testkube create testsuite`
+
 all tests in the above scripts should be created before running the testsuite script, please refer to "# Creating Test" section.
 
-Run testsuite
+## Run testsuite
 
-``` testkube run testsuite <testsuite name> -f ```
+` testkube run testsuite <testsuite name> -f `
 
-Delete testsuite
+## Delete testsuite
 
-``` kubectl delete testsuites <testsuite name> -ntestkube ```
+` kubectl delete testsuites <testsuite name> -ntestkube `
 
-Result of testsuite executions
+## Result of testsuite executions
 
-``` testkube get tse```
+` testkube get tse```
 
-# Test Schedule
-``` kubectl testkube create test --file <filename json> --name scheduled-test --schedule="*/1 * * * *" ```
+
 
 # Test triggers
 
 Test triggers are created as Custom Resources, they needs to be defined in yaml file
 
-``` kubectl apply -f <yamlfilepath> ```
+` kubectl apply -f <yamlfilepath> `
 
 
 # Supported test types/executors within Testkube
