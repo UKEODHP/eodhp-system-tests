@@ -22,11 +22,11 @@ Once above command is run the following output will be displayed
 ## Updating test
  testnames are unique, no two test can be created with same name, but the test content can be updated using bellow command
 
-` testkube update test --name <testname> `
+` testkube update test --name <testname> --file <testjsonfilepath> `
 
 ### adding timeout
 
-` testkube update test --name <testname> --timeout 10 `
+` testkube update test --name <testname> --file <testjsonfilepath> --timeout 10 `
 
 where the timeout value is seconds.
 
