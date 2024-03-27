@@ -81,7 +81,7 @@ test suite is created as:
 
 `cat devtestsuite.json | kubectl testkube create testsuite`
 
-all tests in the above scripts should be created before running the testsuite script, please refer to "# Creating Test" section.
+all tests in the above scripts should be created before running the testsuite script, please refer to "Creating Test" section.
 
 ## Run testsuite
 
@@ -93,7 +93,7 @@ all tests in the above scripts should be created before running the testsuite sc
 
 ## Result of testsuite executions
 
-` testkube get tse```
+` testkube get tse`
 
 
 
