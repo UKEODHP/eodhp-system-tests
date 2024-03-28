@@ -30,7 +30,7 @@ The test names given below are added to testsuite, therefore users/developers ca
 | resource-cat    | resourcecat-test   |
 | data-provider1  | dataprovider1-test |
 
-### creating test with Schedule
+### creating test with schedule
 ` kubectl testkube create test --file <filename json> --name scheduled-test --variable BASE_URL=<base url to be tested> --schedule="*/1 * * * *" `
 
 ## Updating test
@@ -88,7 +88,7 @@ Content of the sample json file is below, where the test names such as "stac-tes
     "steps": [
         {"execute": [
             {"test": "apphub-test"}, {"test": "webpresence-test"}, {"test": "eoxvs-test"},
-            {"test": "stac-test "}, {"test": "resourcecat-test"}, {"test": "dataprovider-test"}
+            {"test": "stac-test "}, {"test": "resourcecat-test"}, {"test": "dataprovider1-test"}
         ]},
         {"execute": [{"delay": "10s"}]},
         {"execute": [{"test": "apphub-test"}]}
