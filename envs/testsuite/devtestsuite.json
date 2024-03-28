@@ -1,0 +1,12 @@
+{
+    "name": "testkube-suite",
+    "description": "Testkube test suite for eodhp",
+    "steps": [
+        {"execute": [
+            {"test": "apphub-test"}, {"test": "webpresence-test"}, {"test": "eoxvs-test"},
+            {"test": "stac-test "}, {"test": "resourcecat-test"}, {"test": "dataprovider-test"}
+        ]},
+        {"execute": [{"delay": "10s"}]},
+        {"execute": [{"test": "apphub-test"}]}
+    ]
+}
