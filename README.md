@@ -77,7 +77,7 @@ Test Suites stands for the orchestration of different test steps, which can run 
 
 Content of the test suites are defined as json file under "testsuite" folder
 
-` /testsuite/devtestsuite.json `
+` /testsuite/generictestsuite.json `
 
 Content of the sample json file is below, where the test names such as "stac-test1" and "apphub-test1" should be created before testsuite creation
 
@@ -98,7 +98,7 @@ Content of the sample json file is below, where the test names such as "stac-tes
 
 test suite is created as:
 
-`cat devtestsuite.json | kubectl testkube create testsuite`
+`cat generictestsuite.json | kubectl testkube create testsuite`
 
 all tests in the above scripts should be created before running the testsuite script, please refer to [link](#creating-test) section.
 
