@@ -79,7 +79,7 @@ Content of the test suites are defined as json file under "testsuite" folder
 
 ` /testsuite/generictestsuite.json `
 
-Content of the sample json file is below, where the test names such as "stac-test1" and "apphub-test1" should be created before testsuite creation
+Content of the sample json file is below, where the test names such as "apphub-test and "webpresence-test" should be created before testsuite creation
 
 ```json
 {
