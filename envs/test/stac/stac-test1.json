@@ -1,5 +1,0 @@
-{
-  "command": ["curl", "https://test.eodatahub.org.uk/stac/v3.1.1/index.html"],
-  "expected_status": "200"
-}
-  

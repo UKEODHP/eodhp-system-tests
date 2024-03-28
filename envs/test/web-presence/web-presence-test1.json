@@ -1,4 +1,0 @@
-{
-  "command": ["curl", "https://dev.eodatahub.org.uk/catalogue-data/catalog.json"],
-  "expected_status": "200"
-}

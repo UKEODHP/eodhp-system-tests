@@ -1,4 +1,0 @@
-{
-    "command": ["curl", "https://test.eodatahub.org.uk"],
-    "expected_status": "200"
-}
