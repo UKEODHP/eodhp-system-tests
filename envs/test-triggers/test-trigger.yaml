@@ -6,7 +6,7 @@ metadata:
 spec:
   resource: deployment    # pod, deployment, statefulset, daemonset, service, ingress, event, configmap
   resourceSelector:
-    name: application-hub-hub   # which pod name we should be providing here? Like "application-hub-hub-7794f64bf4-slt89" ??
+    name: application-hub-hub-5c7d99ccf7-4rrw5  # which pod name we should be providing here? Like "application-hub-hub-7794f64bf4-slt89" ??
     namespace: proc
   execution: test
   event: modified
