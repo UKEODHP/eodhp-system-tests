@@ -1,4 +1,0 @@
-{
-  "command": ["curl", "https://apphub.test.eodhp.eco-ke-staging.com/"],
-  "expected_status": "200"
-}

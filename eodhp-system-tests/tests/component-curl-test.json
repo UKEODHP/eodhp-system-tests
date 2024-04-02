@@ -1,0 +1,7 @@
+{
+    "command": [
+      "curl", "$(BASE_URL)"
+    ],
+    "expected_status": "200"
+  }
+  
