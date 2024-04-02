@@ -131,6 +131,10 @@ The test trigger yaml file can be found under ` /eodhp-system-tests/test-trigger
 
 The tests or testsuites can be triggered with an action (run) when a resource (pod, deployment, statefulset, deamonset, service, ingress, event, configmap) event (create, modify, delete) takes place.
 
+## delete test trigger
+
+` kubectl delete -f /eodhp-system-tests/test-triggers/test-triggers.yaml `
+
 ## test labels
 Label selectors are used when we want to select a group of resources in a specific namespace.
 
@@ -142,7 +146,7 @@ selector:
     matchExpressions:
       - key: environment                 # label name
         operator: In                     # possible values "In | NotIn | Exists | DoesNotExist"
-        values: [dev]                    # 
+        values: [dev]                    # value(s)
 ```
 
 
