@@ -1,5 +1,10 @@
 # EODHP System Tests
 
+## Prerequisites
+
+
+- Teskube CLI is installed (https://docs.testkube.io/articles/install-cli)
+- 
 
 ## Creating First Test
   https://docs.testkube.io/articles/creating-first-test
@@ -13,20 +18,34 @@
 ## Creating Test
 * https://docs.testkube.io/articles/creating-tests
 
-` testkube create test --name <testname> --type curl/test --file <testjsonfilepath> `
+` testkube create test --name <testname> --type curl/test --file component-curl-test.json --variable BASE_URL=<base url to be tested> `
 
-Once above command is run the following output will be displayed
+The ` component-curl-test.json ` is in ` /env/tests/ ` folder. Once above command is run the following output will be displayed
 
 ` Test created testkube / <testname> 🥇 `
+
+The test names given below are added to testsuite, therefore users/developers can update those tests without adding them to testsuite (see [link](#updating-test) ), they will be executed automatically as the test suite is executed.
+
+| Component       | testname           |
+|-----------------|--------------------|
+| apphub          | apphub-test        |
+| eoxvs           | eoxvs-test         |
+| web-presence    | webpresence-test   |
+| stac            | stac-test          |
+| resource-cat    | resourcecat-test   |
+| data-provider1  | dataprovider1-test |
+
+### creating test with schedule
+` kubectl testkube create test --file <filename json> --name <scheduled-test-name> --variable BASE_URL=<base url to be tested> --schedule="*/1 * * * *" `
 
 ## Updating test
  testnames are unique, no two test can be created with same name, but the test content can be updated using bellow command
 
-` testkube update test --name <testname> `
+` testkube update test --name <testname> --file <testjsonfilepath> `
 
 ### adding timeout
 
-` testkube update test --name <testname> --timeout 10 `
+` testkube update test --name <testname> --file <testjsonfilepath> --timeout 10 `
 
 where the timeout value is seconds.
 
@@ -37,14 +56,12 @@ where the timeout value is seconds.
 
 Execute the test using the command below
 
-` testkube run test <testname> `
+` testkube run test <testname> --variable BASE_URL=<base url to be tested>`
 
 optionally add ` -f ` option to wait until the execution complete
 
-` testkube run test <testname> -f `
+` testkube run test <testname> --variable BASE_URL=<base url to be tested> -f `
 
-## Test Schedule
-` kubectl testkube create test --file <filename json> --name scheduled-test --schedule="*/1 * * * *" `
 
 ## Getting Test Results
 https://docs.testkube.io/articles/getting-tests-results
@@ -53,6 +70,10 @@ Get the test results using:
 
 ` kubectl testkube get execution <execution name> `
 
+## Deleting test
+
+Tests can be deleted using the following command
+` testkube delete test <testname> `
 
 # Testsuite
 Test Suites stands for the orchestration of different test steps, which can run sequentially and/or in parallel. On each batch step you can define either one or multiple steps such as test execution, delay, or other (future) steps.
@@ -61,27 +82,30 @@ Test Suites stands for the orchestration of different test steps, which can run 
 
 Content of the test suites are defined as json file under "testsuite" folder
 
-/testsuite/devtestsuite.json
+` /testsuite/generictestsuite.json `
 
-Content of the sample json file is below, where the test names such as "stac-test1" and "apphub-test1" should be created before testsuite creation
+Content of the sample json file is below, where the test names such as "apphub-test and "webpresence-test" should be created before testsuite creation
 
 ```json
 {
     "name": "testkube-suite",
     "description": "Testkube test suite for eodhp",
     "steps": [
-        {"execute": [{"test": "stac-test1"}]},
+        {"execute": [
+            {"test": "apphub-test"}, {"test": "webpresence-test"}, {"test": "eoxvs-test"},
+            {"test": "stac-test "}, {"test": "resourcecat-test"}, {"test": "dataprovider1-test"}
+        ]},
         {"execute": [{"delay": "10s"}]},
-        {"execute": [{"test": "apphub-test1"}]}
+        {"execute": [{"test": "apphub-test"}]}
     ]
 }
 ```
 
 test suite is created as:
 
-`cat devtestsuite.json | kubectl testkube create testsuite`
+`cat generictestsuite.json | kubectl testkube create testsuite`
 
-all tests in the above scripts should be created before running the testsuite script, please refer to "# Creating Test" section.
+all tests in the above scripts should be created before running the testsuite script, please refer to [link](#creating-test) section.
 
 ## Run testsuite
 
@@ -93,15 +117,33 @@ all tests in the above scripts should be created before running the testsuite sc
 
 ## Result of testsuite executions
 
-` testkube get tse```
+` testkube get tse`
 
 
 
 # Test triggers
-
+[testkube test triggers](https://docs.testkube.io/articles/test-triggers)
 Test triggers are created as Custom Resources, they needs to be defined in yaml file
 
-` kubectl apply -f <yamlfilepath> `
+` kubectl apply -f /eodhp-system-tests/test-triggers/test-triggers.yaml `
+
+The test trigger yaml file can be found under ` /eodhp-system-tests/test-triggers ` folder, more than one trigger is created in the same file ` test-trigger.yaml` separated by ` --- `
+
+The tests or testsuites can be triggered with an action (run) when a resource (pod, deployment, statefulset, deamonset, service, ingress, event, configmap) event (create, modify, delete) takes place.
+
+## test labels
+Label selectors are used when we want to select a group of resources in a specific namespace.
+
+```yaml
+selector:
+  namespace: Kubernetes object namespace (default is **testkube**)
+  labelSelector:
+    matchLabels: map of key-value pairs
+    matchExpressions:
+      - key: environment                 # label name
+        operator: In                     # possible values "In | NotIn | Exists | DoesNotExist"
+        values: [dev]                    # 
+```
 
 
 # Supported test types/executors within Testkube
