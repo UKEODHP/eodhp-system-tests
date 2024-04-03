@@ -1,0 +1,37 @@
+apiVersion: tests.testkube.io/v1
+kind: TestTrigger
+metadata:
+  name: apphub-modified-trigger
+  namespace: testkube
+spec:
+  resource: deployment    # pod, deployment, statefulset, daemonset, service, ingress, event, configmap
+  resourceSelector:
+    name: application-hub-hub-5c7d99ccf7-4rrw5
+    namespace: proc
+  execution: test
+  event: modified
+  action: run
+  delay: 30s
+  testSelector:
+    name: apphubtest    ## or testsuite
+    namespace: testkube
+
+---
+
+apiVersion: tests.testkube.io/v1
+kind: TestTrigger
+metadata:
+  name: eoxvs-modified-trigger
+  namespace: testkube
+spec:
+  resource: deployment    # pod, deployment, statefulset, daemonset, service, ingress, event, configmap
+  resourceSelector:
+    name: eoxvs-harvester-584b8bc8bd-jfkl6
+    namespace: proc
+  execution: testsuite
+  event: modified
+  action: run
+  delay: 30s
+  testSelector:
+    name: testkube-suite
+    namespace: testkube
