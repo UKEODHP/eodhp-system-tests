@@ -18,7 +18,7 @@
 ## Creating Test
 * https://docs.testkube.io/articles/creating-tests
 
-` testkube create test --name <testname> --type curl/test --file component-curl-test.json`
+` testkube create test --name <testname> --type curl/test --file component-curl-test.json --variable BASE_URL=<base url to be tested> `
 
 The ` component-curl-test.json ` is in ` /env/tests/ ` folder. Once above command is run the following output will be displayed
 
@@ -36,7 +36,7 @@ The test names given below are added to testsuite, therefore users/developers ca
 | data-provider1  | dataprovider1-test |
 
 ### creating test with schedule
-` kubectl testkube create test --file <filename json> --name scheduled-test --variable BASE_URL=<base url to be tested> --schedule="*/1 * * * *" `
+` kubectl testkube create test --file <filename json> --name <scheduled-test-name> --variable BASE_URL=<base url to be tested> --schedule="*/1 * * * *" `
 
 ## Updating test
  testnames are unique, no two test can be created with same name, but the test content can be updated using bellow command
@@ -122,10 +122,32 @@ all tests in the above scripts should be created before running the testsuite sc
 
 
 # Test triggers
-
+[testkube test triggers](https://docs.testkube.io/articles/test-triggers)
 Test triggers are created as Custom Resources, they needs to be defined in yaml file
 
-` kubectl apply -f <yamlfilepath> `
+` kubectl apply -f /eodhp-system-tests/test-triggers/test-triggers.yaml `
+
+The test trigger yaml file can be found under ` /eodhp-system-tests/test-triggers ` folder, more than one trigger is created in the same file ` test-trigger.yaml` separated by ` --- `
+
+The tests or testsuites can be triggered with an action (run) when a resource (pod, deployment, statefulset, deamonset, service, ingress, event, configmap) event (create, modify, delete) takes place.
+
+## delete test trigger
+
+` kubectl delete -f /eodhp-system-tests/test-triggers/test-triggers.yaml `
+
+## test labels
+Label selectors are used when we want to select a group of resources in a specific namespace.
+
+```yaml
+selector:
+  namespace: Kubernetes object namespace (default is **testkube**)
+  labelSelector:
+    matchLabels: map of key-value pairs
+    matchExpressions:
+      - key: environment                 # label name
+        operator: In                     # possible values "In | NotIn | Exists | DoesNotExist"
+        values: [dev]                    # value(s)
+```
 
 
 # Supported test types/executors within Testkube
