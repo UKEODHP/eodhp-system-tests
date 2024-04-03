@@ -2,18 +2,14 @@
 
 ## Prerequisites
 
-
-- Teskube CLI is installed (https://docs.testkube.io/articles/install-cli)
-- 
+- Teskube CLI is installed [testkube cli install](https://docs.testkube.io/articles/install-cli)
 
 ## Creating First Test
-  https://docs.testkube.io/articles/creating-first-test
+  [first test in testkube](https://docs.testkube.io/articles/creating-first-test)
   
  - CLI - manual test execution
    [https://httpbin.test.k6.io/](https://docs.testkube.io/articles/creating-first-test#cli)
    
- - Changing output format
-   https://docs.testkube.io/articles/creating-first-test#changing-the-output-format
 
 ## Creating Test
 * https://docs.testkube.io/articles/creating-tests
@@ -48,7 +44,6 @@ The test names given below are added to testsuite, therefore users/developers ca
 ` testkube update test --name <testname> --file <testjsonfilepath> --timeout 10 `
 
 where the timeout value is seconds.
-
 
 
 ## Running a test
